@@ -1,8 +1,8 @@
 #  Build an Application using Make
 This is a simple HTTP web server written in Golang that listens to incoming HTTP requests on localhost:9999. It provides the following functionality:
 
-- If a request hits the path** /**,  it returns a **404 Not Found error.**
-- If a request hits the path** /health**, it returns the response "ALIVE" if the server is up and running.
+- If a request hits the path **/**,  it returns a **404 Not Found error.**
+- If a request hits the path **/health**, it returns the response "ALIVE" if the server is up and running.
 
 ## Prerequisites
 - Golang must be installed in your environment.
