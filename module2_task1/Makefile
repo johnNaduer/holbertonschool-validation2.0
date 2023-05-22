@@ -1,4 +1,7 @@
-build:  ## Compile the source code of the application to a binary
+lint:   ## Catch errors without the need to compile or execute the application
+	@golangci-lint run
+
+build: lint  ## Compile the source code of the application to a binary
 	@go build
 
 run:    ## Run the application in background by executing the binary
