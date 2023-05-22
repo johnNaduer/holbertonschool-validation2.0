@@ -20,5 +20,6 @@ stop:   Stop the application
 clean:  Stop the application. Delete the binary and the log file:
 test:   Ensure that it behaves as expected
 unit-tests: Run unit tests on web server
+integration-tests: Run integration tests on web server
 help:   Show this help usage
 
