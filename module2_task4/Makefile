@@ -1,21 +1,25 @@
-build: check  ## Generate the website from the markdown and configuration files in the directory dist/ 
-	@hugo
+SHELL := /bin/bash
+POST_TITLE ?= default-title
+POST_NAME ?= default-name
 
-clean:  ## Cleanup the content of the directory dist/
-	@rm -Rf dist/
+.PHONY: build clean post help check validate
 
-post:   ## Create a new blog post whose filename and title come from the environment variables POST_TITLE and POST_NAME
-	@rm -Rf content/posts/$(POST_NAME).md
-	@hugo new posts/$(POST_NAME).md
-	@sed -i 's/title:.*/title: $(POST_TITLE)/' content/posts/$(POST_NAME).md
-	@sed -i 's/draft:.*/draft: "false"/' content/posts/$(POST_NAME).md
+check:  ## check content and links  of URLs
+	@markdownlint content/posts/*.md
+	@find content/**/*.md -exec markdown-link-check {} \;
 
-check: ## Check syntaxis and links
-	@find ./content -name \*.md -print0 | xargs -0 -n1 markdownlint
-	@find ./content -name \*.md -print0 | xargs -0 -n1 markdown-link-check
-
-validate: ## Validate W3C HTML
+validate: ## validate links in dist folder
 	@python3 /opt/W3C-Validator/w3c_validator.py ./dist/index.html 2>&1 || true
 
-help:   ## Show this help usage
-	@cat Makefile | grep "##" | tr -d "##" | head -n -1
+build:  check ##Build your website
+	@hugo
+
+clean:  ##Delete all the content inside dist directory
+	@rm -rf dist
+
+post:  ##Create a new post with global variables where file name is POST_NAME and post title is POST_TITLE
+	@hugo new posts/$(POST_NAME).md
+	@sed -i 's/^title: .*/title: "'"${POST_TITLE}"'"/' content/posts/"${POST_NAME}".md
+
+help:  ##Show this help usage
+	@cat Makefile | grep "^[a-z][a-z\-]*:.*##.*" | sed 's/:.*## /: /'
