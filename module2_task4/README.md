@@ -2,6 +2,31 @@
 
 A Fast and Flexible Static Site Generator built with love by [bep](https://github.com/bep), [spf13](http://spf13.com/) and [friends](https://github.com/gohugoio/hugo/graphs/contributors) in [Go][].
 
+## Prerequisites
+
+To build and run the website, ensure you have the following installed:
+
+- [Ubuntu 18.04](https://releases.ubuntu.com/18.04/) OS where the webpage was generated
+- [Go](https://go.dev/doc/install) - required to run GoHugo
+- [GoHugo](https://github.com/gohugoio/hugo/releases/tag/v0.84.0) - static site generator used for building the website
+- [Make](https://www.howtoinstall.me/ubuntu/18-04/make/) - required for running the Makefile
+
+## Lifecycle
+
+The website's lifecycle consists of the following steps:
+
+1. Install the prerequisites mentioned in the previous section.
+2. Clone the repository and navigate to its root directory.
+3. Run `make build` to build the website using GoHugo. The built website will be available in the `dist` directory.
+4. Run `make post` create a new blog post using global variables POST\_NAME & POST\_TITLE
+5. Run `hugo server` to see the webpage in your localhost:1313
+6. Run `make clean` to delete the dist directory containing the website generated files (excluding posts)
+7. Run `make check` to check website content and links
+8. Run `make validate` to check dist/index.html links
+To get a list of available Makefile targets and their descriptions, run `make help`.
+
+## LINKS OF INTEREST
+
 [Website](https://gohugo.io) |
 [Forum](https://discourse.gohugo.io) |
 [Documentation](https://gohugo.io/getting-started/) |
@@ -223,22 +248,3 @@ google.golang.org/protobuf="v1.26.0"
 gopkg.in/ini.v1="v1.51.1"
 gopkg.in/yaml.v2="v2.4.0"
 
-
-## Prerequisites
-
-Ubuntu 18.04
-GNU Make in version 3.81+
-Git (command line) in version 2+
-Go Hugo v0.84.0
-Docker
-A text editor or IDE
-
-
-## Lifecycle
-
-build:   Generate the website from the markdown and configuration files in the directory dist/
-clean:   Cleanup the content of the directory dist/
-post:    Create a new blog post whose filename and title come from the environment variables POST_TITLE and POST_NAME
-check:  Check syntaxis and links
-validate:  Validate W3C HTML
-help:    Show this help usage
